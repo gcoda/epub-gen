@@ -2,3 +2,4 @@
 tempDir
 node_modules/
 *.map
+dist/
