@@ -2,7 +2,7 @@
 (function() {
   var EPub, optionsAlice, path;
 
-  EPub = require("./lib");
+  EPub = require("./dist");
 
   path = require("path");
 
