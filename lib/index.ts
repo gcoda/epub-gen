@@ -103,8 +103,8 @@ class EPub {
     this.options.uuid = this.uuid
     this.options.id = this.id
     this.options.images = []
-    this.options.content = _.map(this.options.content, function(
-      content: Chapter,
+    this.options.content = _.map(options.content as InternalChapter[], function(
+      content: InternalChapter,
       index
     ) {
       if (!content.filename) {
@@ -316,7 +316,7 @@ class EPub {
         return filename
       })
     }
-    _.each(this.options.content, function(content) {
+    _.each(this.options.content as InternalChapter[], function(content) {
       let data = `${self.options.docHeader}
   <head>
   <meta charset="UTF-8" />
@@ -591,11 +591,6 @@ export type EPubOptions = {
   tempDir?: string
 }
 type Chapter = {
-  id: string
-  dir: string
-  href: string
-  url: string
-  filePath: string
   /** optional, Chapter title */
   title?: string
   /** optional, if each book author is different, you can fill it. */
@@ -617,4 +612,12 @@ type ImageOption = {
   mediaType: string
   extension: string
   dir: string
+}
+
+type InternalChapter = Chapter & {
+  id: string
+  dir: string
+  href: string
+  url: string
+  filePath: string
 }
