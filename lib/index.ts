@@ -557,53 +557,75 @@ class EPub {
 module.exports = EPub
 export default EPub
 export type EPubOptions = {
-  /** Title of the book */
+  /**
+   * Title of the book */
   title: string
-  /** Name of the author for the book, string or array, eg. "Alice" or ["Alice", "Bob"] */
+  /**
+   * Name of the author for the book, string or array, eg. "Alice" or ["Alice", "Bob"] */
   author: string | string[]
-  /** Publisher name (optional) */
+  /**
+   * Publisher name (optional) */
   publisher?: string
-  /** Book cover image (optional), File path (absolute path) or web url, eg. "http://abc.com/book-cover.jpg" or "/User/Alice/images/book-cover.jpg" */
+  /**
+   * Book cover image (optional), File path (absolute path) or web url, eg. "http://abc.com/book-cover.jpg" or "/User/Alice/images/book-cover.jpg" */
   cover?: string
-  /** Out put path (absolute path), you can also path output as the second argument when use new , eg: new Epub(options, output) */
+  /**
+   * Out put path (absolute path), you can also path output as the second argument when use new , eg: new Epub(options, output) */
   output?: string
-  /** You can specify the version of the generated EPUB, 3 the latest version (http://idpf.org/epub/30) or 2 the previous version (http://idpf.org/epub/201, for better compatibility with older readers). If not specified, will fallback to 3. */
+  /**
+   * You can specify the version of the generated EPUB, 3 the latest version (http://idpf.org/epub/30) or 2 the previous version (http://idpf.org/epub/201, for better compatibility with older readers). If not specified, will fallback to 3. */
   version?: number
-  /** If you really hate our css, you can pass css string to replace our default style. eg: "body{background: #000}" */
+  /**
+   * If you really hate our css, you can pass css string to replace our default style. eg: "body{background: #000}" */
   css?: string
-  /** Array of (absolute) paths to custom fonts to include on the book so they can be used on custom css. Ex: if you configure the array to fonts: ['/path/to/Merriweather.ttf'] you can use the following on the custom CSS: `@font-face { font-family: "Merriweather"; font-style: normal; font-weight: normal; src : url("./fonts/Merriweather.ttf"); }` */
+  /**
+   * Array of (absolute) paths to custom fonts to include on the book so they can be used on custom css. Ex: if you configure the array to fonts: ['/path/to/Merriweather.ttf'] you can use the following on the custom CSS: `@font-face { font-family: "Merriweather"; font-style: normal; font-weight: normal; src : url("./fonts/Merriweather.ttf"); }` */
   fonts?: string[]
-  /** Language of the book in 2 letters code (optional). If not specified, will fallback to en. */
+  /**
+   * Language of the book in 2 letters code (optional). If not specified, will fallback to en. */
   lang?: string
-  /** Title of the table of contents. If not specified, will fallback to Table Of Contents. */
+  /**
+   * Title of the table of contents. If not specified, will fallback to Table Of Contents. */
   tocTitle?: string
-  /** Automatically append the chapter title at the beginning of each contents. You can disable that by specifying false. */
+  /**
+   * Automatically append the chapter title at the beginning of each contents. You can disable that by specifying false. */
   appendChapterTitles?: boolean
-  /** Optional. For advanced customizations: absolute path to an OPF template. */
+  /**
+   * Optional. For advanced customizations: absolute path to an OPF template. */
   customOpfTemplatePath?: null | string
-  /** Optional. For advanced customizations: absolute path to a NCX toc template. */
+  /**
+   * Optional. For advanced customizations: absolute path to a NCX toc template. */
   customNcxTocTemplatePath?: null | string
-  /** Optional. For advanced customizations: absolute path to a HTML toc template. */
+  /**
+   * Optional. For advanced customizations: absolute path to a HTML toc template. */
   customHtmlTocTemplatePath?: null | string
-  /** Book Chapters content. It's should be an array of objects. eg. [{title: "Chapter 1",data: "<div>..."}, {data: ""},...] */
+  /**
+   * Book Chapters content. It's should be an array of objects. eg. [{title: "Chapter 1",data: "<div>..."}, {data: ""},...] */
   content: Chapter[]
   verbose?: boolean
   tempDir?: string
 }
 type Chapter = {
-  /** optional, Chapter title */
+  /**
+   * optional, Chapter title */
   title?: string
-  /** optional, if each book author is different, you can fill it. */
+  /**
+   * optional, if each book author is different, you can fill it. */
   author?: string | string[]
-  /** required, HTML String of the chapter content. image paths should be absolute path (should start with "http" or "https"), so that they could be downloaded. With the upgrade is possible to use local images (for this the path must start with file: //) */
+  /**
+   * required, HTML String of the chapter content. image paths should be absolute path (should start with "http" or "https"), so that they could be downloaded. With the upgrade is possible to use local images (for this the path must start with file: //) */
   data: string
-  /** optional, if is not shown on Table of content, default: false; */
+  /**
+   * optional, if is not shown on Table of content, default: false; */
   excludeFromToc?: boolean
-  /** optional, if is shown before Table of content, such like copyright pages. default: false; */
+  /**
+   * optional, if is shown before Table of content, such like copyright pages. default: false; */
   beforeToc?: string | boolean
-  /** optional, specify filename for each chapter, default: undefined; */
+  /**
+   * optional, specify filename for each chapter, default: undefined; */
   filename?: string
-  /** specify whether or not to console.log progress messages, default: false. */
+  /**
+   * specify whether or not to console.log progress messages, default: false. */
   verbose?: boolean
 }
 type ImageOption = {
