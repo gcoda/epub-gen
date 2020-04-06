@@ -3,13 +3,14 @@ import fs from 'fs'
 import _ from 'underscore'
 import ejs from 'ejs'
 import entities from 'entities'
-import request from 'superagent'
-require('superagent-proxy')(request)
 import fsExtra from 'fs-extra'
 import mime from 'mime'
 import archiver from 'archiver'
 import nodeFetch from 'node-fetch'
 import fetchRetry, { RequestInit } from '@zeit/fetch-retry'
+import { AgentOptions } from 'agent-base'
+import { Agent } from 'http'
+import ProxyAgent from 'proxy-agent'
 
 const fetch = fetchRetry(nodeFetch)
 
@@ -53,7 +54,10 @@ class EPub {
   private content: ProcessedChapter[]
   private images: ChapterImage[]
   promise: Promise<any>
-  constructor(options: EPubOptions, output: string) {
+  constructor({ proxy, ...options }: EPubOptions, output: string) {
+    const withAgent = proxy
+      ? { agent: (new ProxyAgent(proxy) as any) as Agent }
+      : {}
     this.options = {
       output,
       fonts: [],
@@ -71,6 +75,7 @@ class EPub {
       tempDir: path.resolve(__dirname, '../tempDir/'),
       ...options,
       requestInit: {
+        ...withAgent,
         timeout: 30000,
         ...options.requestInit,
       },
@@ -454,6 +459,7 @@ export type EPubOptions = {
   content: Chapter[]
   verbose?: boolean
   tempDir?: string
+  proxy?: AgentOptions | string
   requestInit?: RequestInit
 }
 type Chapter = {
